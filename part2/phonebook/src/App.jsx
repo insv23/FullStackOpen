@@ -26,7 +26,7 @@ const App = () => {
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
-  const hanldeNameChange = (e) => {
+  const handleNameChange = (e) => {
     setNewName(e.target.value);
   };
 
@@ -54,6 +54,10 @@ const App = () => {
                 p.id !== returnedPerson.id ? p : returnedPerson
               )
             );
+          })
+          .catch((error) => {
+            setMessageType("error");
+            setMessage(error.response.data.error);
           });
         setMessageType("info");
         setMessage(`Updated ${updatedPerson.name}`);
@@ -61,18 +65,24 @@ const App = () => {
       return;
     }
 
-    const personbject = {
+    const personObject = {
       name: newName,
       number: newNumber,
     };
 
-    numberService.create(personbject).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
-      setNewName("");
-      setNewNumber("");
-      setMessageType("info");
-      setMessage(`Added ${returnedPerson.name}`);
-    });
+    numberService
+      .create(personObject)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        setNewName("");
+        setNewNumber("");
+        setMessageType("info");
+        setMessage(`Added ${returnedPerson.name}`);
+      })
+      .catch((error) => {
+        setMessageType("error");
+        setMessage(error.response.data.error);
+      });
   };
 
   const deleteItemOf = (id) => {
@@ -107,7 +117,7 @@ const App = () => {
         newName={newName}
         newNumber={newNumber}
         addPerson={addPerson}
-        hanldeNameChange={hanldeNameChange}
+        handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>

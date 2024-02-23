@@ -2,13 +2,13 @@ const Add = ({
   newName,
   newNumber,
   addPerson,
-  hanldeNameChange,
+  handleNameChange,
   handleNumberChange,
 }) => {
   return (
     <form onSubmit={addPerson}>
       <div>
-        name: <input onChange={hanldeNameChange} value={newName} />
+        name: <input onChange={handleNameChange} value={newName} />
       </div>
       <div>
         number: <input onChange={handleNumberChange} value={newNumber} />
